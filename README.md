@@ -1,6 +1,8 @@
 # M3GM
 This repository is the future home for code for *Max-Margin Markov Graph Models (M3GMs)* as described in the paper:
 
+**October 2: there is code here, it is still untested for many changes, including Python 2->3**
+
 ```
 Yuval Pinter and Jacob Eisenstein. Predicting Semantic Relations using Global Graph Properties. EMNLP 2018.
 ```
