@@ -1,5 +1,5 @@
 # M3GM
-This repository is the future home for code for *Max-Margin Markov Graph Models (M3GMs)* as described in the paper:
+This repository is the future home for code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://arxiv.org/abs/1808.08644):
 
 **October 2: there is code here, it is still untested for many changes, including Python 2->3**
 
