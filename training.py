@@ -44,7 +44,7 @@ def macro_node_iteration(opts, multi_graph, assoc_cache,
 
     # keep existing score for all deltas
     multi_graph.rescore()
-    score_with_all = multi_graph.dyscore
+    score_with_all = multi_graph.dy_score
 
     # report progress
     perform_verbosity_steps = opts.v > 1 or (opts.v > 0 and src_i > 0 and src_i % 10 == 0)
@@ -62,8 +62,8 @@ def macro_node_iteration(opts, multi_graph, assoc_cache,
         return assoc_cache
 
     # compute log likelihood on targets
-    target_assoc_scores = {t: multi_graph.word_assoc_score(src_i, t, rel)\
-                           * multi_graph.a_scale for t in true_targets}
+    # each used to be multiplied by multi_graph.a_scale
+    target_assoc_scores = {t: multi_graph.word_assoc_score(src_i, t, rel) for t in true_targets}
     if opts.no_assoc_bp:
         # turn into values to detach from computation graph
         target_assoc_scores = {t: t_as.value() for t, t_as in list(target_assoc_scores.items())}
@@ -97,8 +97,8 @@ def macro_node_iteration(opts, multi_graph, assoc_cache,
     for t in true_targets:
         t_score = target_scores[t]
         negs = [list(neg_assocs.keys())[j] for j in neg_samples[t]]
-        neg_assoc_scores = [multi_graph.word_assoc_score(src_i, j, rel) * multi_graph.a_scale\
-                           for j in negs]
+        # each used to be multiplied by multi_graph.a_scale
+        neg_assoc_scores = [multi_graph.word_assoc_score(src_i, j, rel) for j in negs]
         if opts.no_assoc_bp:
             # turn into values to detach from computation graph
             neg_assoc_scores = [s.value() for s in neg_assoc_scores]

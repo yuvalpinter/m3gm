@@ -24,7 +24,7 @@ def load_prediction_dataset(filename):
     """
     :param filename: file containing WordnetPredictionDataset with WordNet graphs in train, dev and test
     """
-    ds = pickle.load(open(filename, 'r'))
+    ds = pickle.load(open(filename, 'rb'))
     return ds, ds.train.index
 
 
@@ -33,7 +33,7 @@ def load_graphs(filename):
     loads WordNet graphs from pre-pickled resource
     :param filename: .pkl file with graph in sparse matrices format
     """
-    ds = pickle.load(open(filename, 'r'))
+    ds = pickle.load(open(filename, 'rb'))
     return ds.matrices, ds.index
 
 

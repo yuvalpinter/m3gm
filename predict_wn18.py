@@ -349,7 +349,6 @@ if __name__ == '__main__':
             timeprint('epochs = {}'.format(opts.epochs))
             timeprint('neg-samp = {}'.format(opts.neg_samp))
             timeprint('regularizer labmda = {}'.format(opts.regularize))
-            timeprint('association score scale in training = {}'.format(opts.ascale))
             timeprint('model output file = {}'.format(opts.model_out))
     if opts.skip_symmetrics:
         timeprint('training ERGM without symmetric relation iterations')
@@ -418,7 +417,7 @@ if __name__ == '__main__':
         iteration_scores = []
         log_file_name = 'pred-train-log-{}_{}.txt'.format(start_time.date(), start_time.time())
         timeprint('starting training phase, writing to {}'.format(log_file_name))
-        with open(log_file_name, 'a', 0) as log_file:
+        with open(log_file_name, 'a') as log_file:
             log_file.write('====\n')
             for ep in range(opts.epochs):
                 iteration_scores.extend(macro_loops(opts, ep + 1, ergm, trainer, log_file, synsets))
@@ -437,7 +436,7 @@ if __name__ == '__main__':
         timeprint('starting inference phase, writing to {}'.format(test_file_name))
         if rerank_file is not None:
             rerank_file.write('rel\tidx\tis_source\tnode\tprediction\tis_gold\tassoc_score\tergm_score\n')
-        with open(test_file_name, 'a', 0) as log_file:
+        with open(test_file_name, 'a') as log_file:
             if dev_results is not None and len(dev_results) > 0:
                 log_file.write('mrr,h@10,h@3,h@1\n' + '\n'.join([str(rrs) for rrs in dev_results]) + '\n')
             ress = eval(tr_graphs, te_graphs, ergm, opts, N, log_file, rerank_file)

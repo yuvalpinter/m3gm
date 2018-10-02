@@ -278,7 +278,7 @@ def node_iteration(rel, g, node, opts, assoc_model, trainer, log_file, is_source
         if log_file is not None:
             log_file.write('{} {}\tNEG_{}\t{:.3e}\n'\
                          .format(node, side, ns, ns_assoc_score.scalar_value()))
-        corresponding_true = i / opts.neg_samp
+        corresponding_true = i // opts.neg_samp
         if opts.nll:
             sample_scores[corresponding_true].append(ns_assoc_score)
         else:
@@ -419,7 +419,6 @@ if __name__ == '__main__':
         timeprint('embeddings file = {}'.format(opts.embeddings))
     else:
         timeprint('embeddings size = {}'.format(opts.emb_size))
-    timeprint('output file = {}'.format(opts.output))
     timeprint('association mode = {}'.format(opts.assoc_mode))
     timeprint('negative samples = {}'.format(opts.neg_samp))
     if opts.model is None:
@@ -474,7 +473,7 @@ if __name__ == '__main__':
         # training phase
         assoc_model = AssociationModel(tr_graphs, embs, opts.assoc_mode, opts.dropout)
         trainer = dy.AdagradTrainer(assoc_model.model, opts.learning_rate)
-        with open('assoc-pred-train-log-{}_{}.txt'.format(start_time.date(), start_time.time()), 'a', 0) as log_file:
+        with open('assoc-pred-train-log-{}_{}.txt'.format(start_time.date(), start_time.time()), 'a') as log_file:
             if opts.no_log:
                 log_file = None
             else:
@@ -516,7 +515,7 @@ if __name__ == '__main__':
     
     # report
     with open('assoc-pred-{}-log-{}_{}.txt'.format('dev' if opts.eval_dev else 'test',
-                                                   start_time.date(), start_time.time()), 'a', 0) as log_file:
+                                                   start_time.date(), start_time.time()), 'a') as log_file:
                                              
         if opts.model_out is None:
             # eval on dev using pre-loaded model
