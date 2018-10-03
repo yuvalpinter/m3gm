@@ -2,7 +2,7 @@
 
 **October 3: most of the code is here. All parts until association model training are validated.**
 
-This repository is the future home for code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://arxiv.org/abs/1808.08644):
+This repository contains code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://arxiv.org/abs/1808.08644):
 
 ```
 Yuval Pinter and Jacob Eisenstein. Predicting Semantic Relations using Global Graph Properties. EMNLP 2018.
@@ -15,7 +15,8 @@ The project was written and tested in Python 3.6. Some packages needed to run it
 * `scipy`
 * `tqdm`
 * `nltk` - with the `wordnet` corpus available
-Write me if you find more blocking dependencies!
+
+Write me / open an issue if you find more blocking dependencies!
 
 # Workflow
 
@@ -32,7 +33,7 @@ Disclaimer: some of the code here takes a while to run. Any suggestions for impr
 
 ## Association Models
 
-(TODO)
+(TODO describe, explain params)
 
 Demo command:
 ```
@@ -41,7 +42,8 @@ python pretrain_assoc.py --input data/wn18rr.pkl --embeddings data/ft-embs-all-l
 
 ## Max-Margin Markov Graph Models
 
-(TODO)
+**This part not validated yet post-refactoring**
+(TODO describe, explain params)
 
 Demo command:
 ```
@@ -56,9 +58,9 @@ Running the dataset creation code with the `--no-symmetrics` flag would result i
 
 # Repo-level TODOs
 
-[] Add exploration Notebook for WordNet (WN) structure
-[] Add mapping of Synset codes from WN 1.6 all the way to 3.0.
-[] Move non-script code into `lib` directory
+- [ ] Add exploration Notebook for WordNet (WN) structure
+- [ ] Add mapping of Synset codes from WN 1.6 all the way to 3.0.
+- [ ] Move non-script code into `lib` directory
 
 # Contact
 `uvp@gatech.edu`.
