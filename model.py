@@ -778,7 +778,7 @@ class MultiGraphErgm(AssociationModel):
                 [self.word_assoc_weights[r] for r in self.relation_names]) # order matters for loading
 
         # feature ordering
-        pickle.dump(self.feature_set, open(filename + '.feats', 'w'))
+        pickle.dump(self.feature_set, open(filename + '.feats', 'wb'))
         
         # nice-to-read score summary
         if initial_weights is not None:
