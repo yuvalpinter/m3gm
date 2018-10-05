@@ -1,12 +1,14 @@
 # M3GM
 
-**October 3: most of the code is here. All parts until association model training are validated.**
+**October 4: most of the code is here. All parts are validated.**
 
 This repository contains code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://arxiv.org/abs/1808.08644):
 
 ```
 Yuval Pinter and Jacob Eisenstein. Predicting Semantic Relations using Global Graph Properties. EMNLP 2018.
 ```
+
+(Stay tuned for official conference PDF and bibtex, around October 30.)
 
 # Code Requirements
 
@@ -16,24 +18,27 @@ The project was written and tested in Python 3.6. Some packages needed to run it
 * `tqdm`
 * `nltk` - with the `wordnet` corpus available
 
-Write me / open an issue if you find more blocking dependencies!
+Write me, or open an issue, if you find more blocking dependencies!
 
 # Workflow
 
 The eventual goal of training an M3GM model and replicating the results from the paper runs through a number of intermediate steps. Here is the hopefully full linearized flowchart, with some detailed descriptions in following sections:
 1. Create a pickled WordNet prediction dataset in sparse matrix format, using [`create_wn18_data.py`](create_wn18_data.py). To use our exact dataset, obtain the distibution of WN18RR [here](https://github.com/villmow/datasets_knowledge_embedding/tree/master/WN18RR) and point the script at the text version.
 1. Obtain synset embeddings. These can be AutoExtend-based ones, which map directly to synsets, or any downloadable word embeddings which can then be averaged across synset lexemes, such as those from [FastText](https://fasttext.cc/).
-  1. If your embeddings are word-level, synsetify them using [`Embed_from_words.py`](embed_from_words.py). Run it without parameters to see usage.
-1. Train an association model (for baseline results or for training an M3GM on top) using `pretrain_assoc.py`. Demo command (for the result from the paper) given below.
-1. Train an M3GM using [`predict_wn18.py`](predict_wn18.py). Demo command (for results from the paper) given below.
-  1. If so inclined, tune the `alpha_r` parameters using [`optimize_alpha_per_relation.py`](optimize_alpha_per_relation.py). You will need to do some math later to translate into results 
-comparable to those in the paper.
+  1. If your embeddings are word-level, synsetify them using [`embed_from_words.py`](embed_from_words.py). Run it without parameters to see usage.
+1. Train an association model (for baseline results or for training an M3GM on top) using [`pretrain_assoc.py`](pretrain_assoc.py). Demo command (for the result from the paper) given below.
+1. Train an M3GM using [`predict_wn18.py`](predict_wn18.py). Demo command (for [results from the paper](https://nlpprogress.com/relation_prediction.html)) given below.
+  1. If so inclined, tune the `alpha_r` parameters using [`optimize_alpha_per_relation.py`](optimize_alpha_per_relation.py). You will need to do some math later to translate into results comparable to those in the paper.
 
 Disclaimer: some of the code here takes a while to run. Any suggestions for improving any of the calculations, or for getting things to run on GPUs for that matter, will be most appreciated.
 
 ## Association Models
 
-(TODO describe, explain params)
+(TODO describe, explain more params)
+
+One parameter you may want to add depending on your target setup is `--rule-override`, which trains modules for *all* relations, including the four symmetric ones (in WordNet).
+It would also evaluate on trained modules in symmetric relations, rather than with a (high-accuracy) rule-based system.
+The default behavior, without this parameter, is training said modules once every five epochs, as it helps with synset embeddings tuning.
 
 Demo command:
 ```
@@ -42,7 +47,6 @@ python pretrain_assoc.py --input data/wn18rr.pkl --embeddings data/ft-embs-all-l
 
 ## Max-Margin Markov Graph Models
 
-**This part not validated yet post-refactoring**
 (TODO describe, explain params)
 
 Demo command:
