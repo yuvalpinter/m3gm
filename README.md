@@ -1,6 +1,6 @@
 # M3GM
 
-**October 4: most of the code is here. All parts are validated.**
+**October 8: most of the code is here and documented. All parts are validated.**
 
 This repository contains code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://arxiv.org/abs/1808.08644):
 
@@ -34,22 +34,38 @@ Disclaimer: some of the code here takes a while to run. Any suggestions for impr
 
 ## Association Models
 
-(TODO describe, explain more params)
+This script trains a local association model using one of several models (see paper for details): Bilinear, TransE, Diag-R1 ("diagonal + rank-1 matrix"), DistMult.
+Be sure to keep record of the embedding dimension used (no need to provide the dimension as an argument if initializing from an a pre-trained file) and of the association algorithm (`--assoc-mode`), as these will be necessary for downstream M3GM training.
 
 One parameter you may want to add depending on your target setup is `--rule-override`, which trains modules for *all* relations, including the four symmetric ones (in WordNet).
 It would also evaluate on trained modules in symmetric relations, rather than with a (high-accuracy) rule-based system.
 The default behavior, without this parameter, is training said modules once every five epochs, as it helps with synset embeddings tuning.
 
-Demo command:
+The `--early-stopping` method used is: for each dev epoch, if its MRR score is lower than both of the last two epochs, halt and return the best model so far.
+
+### Outputs
+* the auto-generated log file (avoid using `--no-log`) will output many, many scores and their components for every single instance encountered.
+* `--model-out` is readable both by this code for test mode, and by downstream M3GM trainer (`--model` param).
+
+### Demo command
 ```
 python pretrain_assoc.py --input data/wn18rr.pkl --embeddings data/ft-embs-all-lower.vec --model-out models/pret_transE --nll --assoc-mode transE --neg-samp 10 --early-stopping --eval-dev
 ```
 
 ## Max-Margin Markov Graph Models
 
-(TODO describe, explain params)
+The most powerful use case for M3GM is when we've trained a good association model, and augment it with weights for combinatorial graph features by way of M3GM training.
+It is best if the association weights, as well as the word embeddings, are frozen from this point on, using the `--no-assoc-bp` parameter. If we believe some of them to be bad, they can later be weighted down using the [`optimize_alpha_per_relation.py`](optimize_alpha_per_relation.py) post-processor, which computes a best-performing association component weight for each relation.
+`--model-only-init` is a related parameter, which ensures that the M3GM component is trained over the data (makes more sense when considering that there's also an `--ergm-model` input parameter which can be used for picking up training from a saved point).
 
-Demo command:
+A prerequesite for this code to run in the common mode is that both `--emb-size` and `assoc-mode` are set to the same values that the association model was trained with.
+
+### Outputs
+* the auto-generated log file (avoid using `--no-log`) will output ERGM scores for all instances and negative samples in training phase, and all cases of re-ranking in the development data traversals.
+* `--model-out` will save the model in a four-file format that can later be read by both this script and the test-mode code (**TODO**).
+* `--rerank-out` provides an input file for [`optimize_alpha_per_relation.py`](optimize_alpha_per_relation.py). It includes all to-be-reranked lists from the dev set and scores from both association and graph components, as well as flags for the true instances.
+
+### Demo command
 ```
 python predict_wn18.py --input data/wn18rr.pkl --emb-size 300 --model models/pret_transE-ep-14 --model-only-init --assoc-mode transE --eval-dev --no-assoc-bp --epochs 3 --neg-samp 10 --regularize 0.01 --rand-all --skip-symmetrics --model-out models/from_pret_trE-3eps --rerank-out from_pret_trE-3eps.txt
 ```
@@ -65,6 +81,8 @@ Running the dataset creation code with the `--no-symmetrics` flag would result i
 - [ ] Add exploration Notebook for WordNet (WN) structure
 - [ ] Add mapping of Synset codes from WN 1.6 all the way to 3.0.
 - [ ] Move non-script code into `lib` directory
+- [ ] Remove `dy.parameter()` calls (deprecated in `dynet 2.0.4`)
+- [ ] Turn any remaining TODOs from here into repo issues
 
 # Contact
 `uvp@gatech.edu`.
