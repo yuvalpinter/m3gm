@@ -1,14 +1,10 @@
 # M3GM
 
-**October 8: most of the code is here and documented. All parts are validated.**
+**October 27: all model code is here, documented, and validated. Bonus content to appear soon.**
 
-This repository contains code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://arxiv.org/abs/1808.08644):
+This repository contains code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://www.aclweb.org/anthology/D18-1201): `Predicting Semantic Relations using Global Graph Properties`.
 
-```
-Yuval Pinter and Jacob Eisenstein. Predicting Semantic Relations using Global Graph Properties. EMNLP 2018.
-```
-
-(Stay tuned for official conference PDF and bibtex, around October 30.)
+Full citation format below.
 
 # Code Requirements
 
@@ -83,6 +79,22 @@ Running the dataset creation code with the `--no-symmetrics` flag would result i
 - [ ] Move non-script code into `lib` directory
 - [ ] Remove `dy.parameter()` calls (deprecated in `dynet 2.0.4`)
 - [ ] Turn any remaining TODOs from here into repo issues
+
+# Citation
+
+```
+@InProceedings{pinter-eisenstein:2018:EMNLP,
+  author    = {Pinter, Yuval  and  Eisenstein, Jacob},
+  title     = {{Predicting Semantic Relations using Global Graph Properties}},
+  booktitle = {Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing},
+  month     = {October-November},
+  year      = {2018},
+  address   = {Brussels, Belgium},
+  publisher = {Association for Computational Linguistics},
+  pages     = {1741--1751},
+  url       = {http://www.aclweb.org/anthology/D18-1201}
+}
+```
 
 # Contact
 `uvp@gatech.edu`.
