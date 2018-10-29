@@ -74,8 +74,8 @@ Running the dataset creation code with the `--no-symmetrics` flag would result i
 
 # Repo-level TODOs
 
-- [V] Add exploration Notebook for WordNet (WN) structure
-- [V] Add mapping of Synset codes from WN 1.7.1 all the way to 3.0.
+- [X] Add exploration Notebook for WordNet (WN) structure
+- [X] Add mapping of Synset codes from WN 1.7.1 all the way to 3.0.
 - [ ] Move non-script code into `lib` directory
 - [ ] Remove `dy.parameter()` calls (deprecated in `dynet 2.0.4`)
 - [ ] Turn any remaining TODOs from here into repo issues
