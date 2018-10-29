@@ -1,6 +1,6 @@
 # M3GM
 
-**October 27: all model code is here, documented, and validated. Bonus content to appear soon.**
+**October 29: all model code is here, documented, and validated. Bonus content is here. All done!**
 
 This repository contains code for *Max-Margin Markov Graph Models (M3GMs)* as described in the [paper](http://www.aclweb.org/anthology/D18-1201): `Predicting Semantic Relations using Global Graph Properties`.
 
@@ -74,8 +74,8 @@ Running the dataset creation code with the `--no-symmetrics` flag would result i
 
 # Repo-level TODOs
 
-- [ ] Add exploration Notebook for WordNet (WN) structure
-- [ ] Add mapping of Synset codes from WN 1.6 all the way to 3.0.
+- [V] Add exploration Notebook for WordNet (WN) structure
+- [V] Add mapping of Synset codes from WN 1.7.1 all the way to 3.0.
 - [ ] Move non-script code into `lib` directory
 - [ ] Remove `dy.parameter()` calls (deprecated in `dynet 2.0.4`)
 - [ ] Turn any remaining TODOs from here into repo issues
