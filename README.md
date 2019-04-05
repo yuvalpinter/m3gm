@@ -1,3 +1,4 @@
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/predicting-semantic-relations-using-global/link-prediction-wn18rr)](https://paperswithcode.com/sota/link-prediction-wn18rr?p=predicting-semantic-relations-using-global)
 # M3GM
 
 **October 29: all model code is here, documented, and validated. Bonus content is here. All done!**
